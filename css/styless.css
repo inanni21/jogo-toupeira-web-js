@@ -1,0 +1,167 @@
+/* Reset básico e fonte */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+  background-color: #fff3cd;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+/* Controle de exibição das telas: a classe escondida tira a tela da renderização */
+.tela {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 30px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.escondida {
+  display: none;
+}
+
+/* Tela inicial */
+#telaInicial h1 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+}
+
+#telaInicial p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+#telaInicial label {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+#inputNomeJogador {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.2rem;
+  border: 3px solid #ff9800;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Botões grandes e com cores fortes, pensando no público infantil */
+button {
+  font-size: 1.4rem;
+  padding: 14px 30px;
+  border: none;
+  border-radius: 12px;
+  background-color: #ff5722;
+  color: #ffffff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* Painel de status: pontuação, vidas e tempo */
+.painelStatus {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Grid de toupeiras: tamanho definido via JS com variável CSS --colunas */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--colunas, 4), 1fr);
+  gap: 12px;
+  justify-content: center;
+}
+
+/* Cada buraco da toupeira: alvo grande, fácil de clicar (público infantil) */
+.buraco {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: #8d6e63;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s ease;
+}
+
+/* Estado ativo: a toupeira "apareceu" nesse buraco */
+.buracoAtivo {
+  background-color: #5d4037;
+}
+
+/* Tela final */
+#telaFinal h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+#telaFinal p {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+#telaFinal h3 {
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+#listaRanking {
+  list-style-position: inside;
+  font-size: 1.1rem;
+  text-align: left;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+/* Responsividade: grid menor e fontes ajustadas no celular */
+@media (max-width: 480px) {
+  #telaInicial h1 {
+    font-size: 1.7rem;
+  }
+
+  .painelStatus {
+    font-size: 1.05rem;
+  }
+
+  .buraco {
+    font-size: 1.5rem;
+  }
+
+  button {
+    font-size: 1.2rem;
+    padding: 12px 22px;
+  }
+}
