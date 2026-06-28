@@ -7,6 +7,8 @@ const TEMPO_TOUPEIRA_ATIVA_MS = 900; // quanto tempo a toupeira fica visível an
 const PONTOS_POR_ACERTO = 10;
 const VIDAS_INICIAIS = 3;
 const TEMPO_PARTIDA_SEGUNDOS = 30;
+const CHAVE_RANKING_LOCALSTORAGE = 'rankingAcerteAToupeira'; // chave usada para salvar o ranking no localStorage
+const QUANTIDADE_MAXIMA_RANKING = 5; // quantos melhores jogadores mostrar
 
 // ===== Estado do jogo =====
 // Guardo o estado em um único objeto para não espalhar variáveis globais soltas.
@@ -34,6 +36,7 @@ const textoTempo = document.getElementById('textoTempo');
 const botaoJogarNovamente = document.getElementById('botaoJogarNovamente');
 const textoResultadoNome = document.getElementById('textoResultadoNome');
 const textoResultadoPontuacao = document.getElementById('textoResultadoPontuacao');
+const listaRanking = document.getElementById('listaRanking');
 
 // Defino a quantidade de colunas no CSS via variável, assim o grid se ajusta automaticamente
 document.documentElement.style.setProperty('--colunas', QUANTIDADE_COLUNAS);
@@ -140,6 +143,49 @@ function tratarCliqueNoBuraco(buracoClicado) {
   }
 }
 
+// ===== Funções de ranking (localStorage) =====
+// Critério escolhido: maior pontuação primeiro. Guardo um array de objetos {nome, pontuacao}
+// no localStorage, como string JSON, porque o localStorage só armazena texto.
+function buscarRankingSalvo() {
+  const rankingSalvo = localStorage.getItem(CHAVE_RANKING_LOCALSTORAGE);
+
+  // Se nunca foi salvo nada antes, retorno uma lista vazia em vez de null,
+  // assim o resto do código não precisa tratar esse caso especial toda hora.
+  if (!rankingSalvo) {
+    return [];
+  }
+
+  return JSON.parse(rankingSalvo);
+}
+
+// Adiciona o resultado da partida atual ao ranking, reordena e mantém só os melhores.
+function salvarResultadoNoRanking(nome, pontuacao) {
+  const ranking = buscarRankingSalvo();
+
+  ranking.push({ nome, pontuacao });
+
+  // Ordeno do maior para o menor, pois o critério é "quem fez mais pontos primeiro".
+  ranking.sort((jogadorA, jogadorB) => jogadorB.pontuacao - jogadorA.pontuacao);
+
+  // Mantenho só os melhores N resultados, para o ranking não crescer infinitamente.
+  const rankingLimitado = ranking.slice(0, QUANTIDADE_MAXIMA_RANKING);
+
+  localStorage.setItem(CHAVE_RANKING_LOCALSTORAGE, JSON.stringify(rankingLimitado));
+
+  return rankingLimitado;
+}
+
+// Renderiza a lista de ranking na tela, pelo DOM (sem innerHTML).
+function exibirRanking(ranking) {
+  listaRanking.innerHTML = ''; // limpo a lista anterior antes de redesenhar
+
+  ranking.forEach((jogador) => {
+    const itemRanking = document.createElement('li');
+    itemRanking.textContent = `${jogador.nome} — ${jogador.pontuacao} pontos`;
+    listaRanking.appendChild(itemRanking);
+  });
+}
+
 // ===== Fim de jogo =====
 // Função única responsável por parar os timers e exibir a tela final.
 // Condição de término: vidas chegam a 0 OU o tempo da partida acaba (o que ocorrer primeiro).
@@ -149,6 +195,9 @@ function finalizarJogo() {
 
   textoResultadoNome.textContent = `Jogador: ${estadoJogo.nomeJogador}`;
   textoResultadoPontuacao.textContent = `Pontuação final: ${estadoJogo.pontuacao}`;
+
+  const rankingAtualizado = salvarResultadoNoRanking(estadoJogo.nomeJogador, estadoJogo.pontuacao);
+  exibirRanking(rankingAtualizado);
 
   mostrarTela(telaFinal);
 }
