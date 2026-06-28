@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acerte a Toupeira</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <main class="container">
+
+    <!-- Tela inicial: jogador digita o nome e clica em Jogar -->
+    <section id="telaInicial" class="tela">
+      <h1>🐹 Acerte a Toupeira</h1>
+      <p>Clique nas toupeiras antes que elas se escondam!</p>
+
+      <label for="inputNomeJogador">Digite seu nome:</label>
+      <input type="text" id="inputNomeJogador" placeholder="Seu nome" maxlength="20">
+
+      <button id="botaoJogar">Jogar</button>
+    </section>
+
+    <!-- Tela do jogo: grid de toupeiras, pontuação, vidas e tempo -->
+    <section id="telaJogo" class="tela escondida">
+      <div class="painelStatus">
+        <span id="textoPontuacao">Pontos: 0</span>
+        <span id="textoVidas">Vidas: 3</span>
+        <span id="textoTempo">Tempo: 30</span>
+      </div>
+
+      <div id="gridToupeiras" class="grid"></div>
+    </section>
+
+    <!-- Tela final: resultado e opção de jogar novamente -->
+    <section id="telaFinal" class="tela escondida">
+      <h2>Fim de jogo!</h2>
+      <p id="textoResultadoNome"></p>
+      <p id="textoResultadoPontuacao"></p>
+
+      <button id="botaoJogarNovamente">Jogar novamente</button>
+
+      <h3>🏆 Ranking</h3>
+      <ol id="listaRanking"></ol>
+    </section>
+
+  </main>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
