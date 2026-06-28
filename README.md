@@ -1,12 +1,7 @@
 # jogo-toupeira-web-js
-# Jogo da Toupeira - Web I
-
-
 **Aluna:** Ianna Flayser Garcia Rocha
 
 **Projeto no ar:** https://inanni21.github.io/jogo-toupeira-web-js/
-
----
 
 ## Mecânica escolhida e tema
 
