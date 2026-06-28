@@ -106,7 +106,8 @@ button:active {
 .buraco {
   width: 100%;
   aspect-ratio: 1 / 1;
-  background-color: #8d6e63;
+  background-color: #4e342e;
+  border: 4px solid #3e2723;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -114,12 +115,22 @@ button:active {
   font-size: 2rem;
   cursor: pointer;
   user-select: none;
-  transition: background-color 0.15s ease;
+  transition: background-color 0.15s ease, transform 0.15s ease;
 }
 
-/* Estado ativo: a toupeira "apareceu" nesse buraco */
+/* Estado ativo: a toupeira "apareceu" nesse buraco.
+   Uso uma cor bem contrastante (verde) e um leve aumento de escala
+   para deixar óbvio, mesmo num olhar rápido, onde clicar. */
 .buracoAtivo {
-  background-color: #5d4037;
+  background-color: #4caf50;
+  border-color: #2e7d32;
+  transform: scale(1.08);
+  animation: pulsarToupeira 0.3s ease-in-out;
+}
+
+@keyframes pulsarToupeira {
+  0% { transform: scale(0.8); }
+  100% { transform: scale(1.08); }
 }
 
 /* Tela final */
