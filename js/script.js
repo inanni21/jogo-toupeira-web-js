@@ -3,7 +3,7 @@
 const QUANTIDADE_COLUNAS = 4;
 const QUANTIDADE_LINHAS = 4;
 const QUANTIDADE_BURACOS = QUANTIDADE_COLUNAS * QUANTIDADE_LINHAS;
-const TEMPO_TOUPEIRA_ATIVA_MS = 900; // quanto tempo a toupeira fica visível antes de esconder
+const TEMPO_TOUPEIRA_ATIVA_MS = 1200; // quanto tempo a toupeira fica visível antes de esconder
 const PONTOS_POR_ACERTO = 10;
 const VIDAS_INICIAIS = 3;
 const TEMPO_PARTIDA_SEGUNDOS = 30;
